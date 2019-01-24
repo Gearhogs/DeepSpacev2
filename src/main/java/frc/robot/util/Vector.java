@@ -27,8 +27,8 @@ public class Vector {
         if (length == 0) {
             return null;
         }
-        Double newX = myPoint.getX()/length;
-        Double newY = myPoint.getY()/length;
+        Double newX = length/myPoint.getX();
+        Double newY = length/myPoint.getY();
 
         return new Vector(newX,newY);
     }

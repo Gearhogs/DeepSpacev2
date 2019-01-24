@@ -31,11 +31,9 @@ public class Arm extends Subsystem {
     lowerArm = new Joint(RobotMap.lowerArmMotor);
 
     upperArm.setCurrentAngle(-45.0);
-    upperArm.setLength(5.0);
     upperArm.setVector(new Vector(0.0, 5.0));
 
     lowerArm.setCurrentAngle(45.0);
-    lowerArm.setLength(5.0);
     lowerArm.setVector(new Vector(0.0, 5.0));
   }
   
