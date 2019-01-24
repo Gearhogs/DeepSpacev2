@@ -7,9 +7,10 @@ import frc.robot.Conversion;
 public class Joint {
     private Vector vector;
     private Double length, currentAngle, targetAngle, gearRatio;
-    private TalonSRX motor;
+    private TalonSRX jointMotor;
 
-    public Joint() {
+    public Joint(int motor) {
+        jointMotor = new TalonSRX(motor);
         this.setVector(new Vector(0.0, 0.0));
         setLength(0.0);
         setCurrentAngle(0.0);
@@ -21,7 +22,7 @@ public class Joint {
      * @return the currentAngle
      */
     public Double getCurrentAngle() {
-        int ticks = motor.getSensorCollection().getQuadraturePosition();
+        int ticks = jointMotor.getSensorCollection().getQuadraturePosition();
         currentAngle = Conversion.TicksToDegrees(ticks, gearRatio);
         return currentAngle;
     }

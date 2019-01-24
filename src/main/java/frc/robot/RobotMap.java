@@ -26,7 +26,8 @@ public class RobotMap {
 	public static int backRightRotateMotor = 14;
 	
 	//Arm
-	public static int middleRightArmMotor = 15;
+	public static int upperArmMotor = 15;
+	public static int lowerArmMotor = 16;
 	//Sensors
 	public static int gyro = 10;
 	// For example to map the left and right motors, you could define the

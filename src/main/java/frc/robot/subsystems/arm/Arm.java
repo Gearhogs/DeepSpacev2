@@ -5,11 +5,12 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.arm;
+package frc.robot.subsystems.arm;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import frc.robot.util.Joint;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.util.Joint;
+import frc.robot.util.Vector;
+import frc.robot.RobotMap;
 
 /**
  * An example subsystem. You can replace me with your own Subsystem.
@@ -26,11 +27,20 @@ public class Arm extends Subsystem {
     // double angleT = Math.acos(x / math.sqrt((x1 * x1) + (y1 * y1)));
     // double endEffector = Point(x1, y1);
   public Arm(){
-    upperArm = new Joint();
-    lowerArm = new Joint();
+    upperArm = new Joint(RobotMap.upperArmMotor);
+    lowerArm = new Joint(RobotMap.lowerArmMotor);
+
     upperArm.setCurrentAngle(-45.0);
+    upperArm.setTargetAngle(0.0);
+    upperArm.setLength(5.0);
+    upperArm.setVector(new Vector(0.0, 5.0));
+
     lowerArm.setCurrentAngle(45.0);
+    lowerArm.setTargetAngle(0.0);
+    lowerArm.setLength(5.0);
+    lowerArm.setVector(new Vector(0.0, 5.0));
   }
+  // Double angleT = Math.abs(upperArm.getCurrentAngle() + lowerArm.getCurrentAngle()) - Math.abs(upperArm.getTargetAngle() + lowerArm.getTargetAngle());
 
   public void initDefaultCommand() {
     
