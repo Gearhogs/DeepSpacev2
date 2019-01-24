@@ -31,17 +31,28 @@ public class Arm extends Subsystem {
     lowerArm = new Joint(RobotMap.lowerArmMotor);
 
     upperArm.setCurrentAngle(-45.0);
-    upperArm.setTargetAngle(0.0);
     upperArm.setLength(5.0);
     upperArm.setVector(new Vector(0.0, 5.0));
 
     lowerArm.setCurrentAngle(45.0);
-    lowerArm.setTargetAngle(0.0);
     lowerArm.setLength(5.0);
     lowerArm.setVector(new Vector(0.0, 5.0));
   }
-  // Double angleT = Math.abs(upperArm.getCurrentAngle() + lowerArm.getCurrentAngle()) - Math.abs(upperArm.getTargetAngle() + lowerArm.getTargetAngle());
-
+  
+  public void SetJointAngles(Double UpperArmAngle, Double LowerArmAngle){
+    upperArm.setTargetAngle(UpperArmAngle);
+    lowerArm.setTargetAngle(LowerArmAngle);
+  }
+  public void SetUpperArmAngle(Double UpperArmAngle){
+    upperArm.setTargetAngle(UpperArmAngle);
+  }
+  public void SetLowerArmAngle(Double LowerArmAngle){
+    lowerArm.setTargetAngle(LowerArmAngle);
+  }
+  public void resetAngles(Double UpperArmAngle, Double LowerArmAngle){
+    upperArm.setTargetAngle(-45.0);
+    lowerArm.setTargetAngle(45.0);
+  }
   public void initDefaultCommand() {
     
   }
