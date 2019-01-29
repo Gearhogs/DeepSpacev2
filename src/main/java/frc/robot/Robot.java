@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import frc.robot.subsystems.arm.Arm;
 import frc.robot.swerve.SwerveDrive;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -24,6 +25,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends TimedRobot {
 	public static SwerveDrive swerveDrive;
+	public static Arm arm;
 	public static OI oi;
 
 	Command m_autonomousCommand;

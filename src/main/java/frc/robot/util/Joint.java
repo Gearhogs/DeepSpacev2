@@ -1,8 +1,9 @@
 package frc.robot.util;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
-import frc.robot.Conversion;
+import com.ctre.phoenix.ErrorCode;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
 public class Joint {
     private Vector vector;
@@ -11,6 +12,7 @@ public class Joint {
 
     public Joint(int motor) {
         jointMotor = new TalonSRX(motor);
+        jointMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);	
         this.setVector(new Vector(0.0, 0.0));
         setLength(0.0);
         setCurrentAngle(0.0);
@@ -23,15 +25,17 @@ public class Joint {
      */
     public Double getCurrentAngle() {
         int ticks = jointMotor.getSensorCollection().getQuadraturePosition();
-        currentAngle = Conversion.TicksToDegrees(ticks, gearRatio);
+        currentAngle = MathUtil.TicksToDegrees(ticks, gearRatio);
         return currentAngle;
     }
 
     /**
      * @param currentAngle the currentAngle to set
      */
-    public void setCurrentAngle(Double currentAngle) {
+    public ErrorCode setCurrentAngle(Double currentAngle) {
         this.currentAngle = currentAngle;
+        ErrorCode myError = jointMotor.getSensorCollection().setQuadraturePosition(MathUtil.DegreesToTicks(currentAngle, gearRatio), 50);
+        return myError;
     }
 
     /**
@@ -60,6 +64,7 @@ public class Joint {
      */
     public void setTargetAngle(Double targetAngle) {
         this.targetAngle = targetAngle;
+        jointMotor.set(ControlMode.Position, MathUtil.DegreesToTicks(targetAngle, gearRatio));
     }
 
     /**

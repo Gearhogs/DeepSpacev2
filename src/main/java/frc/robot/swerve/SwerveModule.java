@@ -1,6 +1,6 @@
 package frc.robot.swerve;
 
-import frc.robot.Conversion;
+import frc.robot.util.MathUtil;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -30,7 +30,7 @@ public class SwerveModule extends Subsystem {
     }
 
     public void Rotate(double degrees) {
-    	rotateMotor.set(ControlMode.Position, Conversion.DegreesToTicks(degrees, ratio) + offset);
+    	rotateMotor.set(ControlMode.Position, MathUtil.DegreesToTicks(degrees, ratio) + offset);
     }
     
     public void Speed(double power) {

@@ -1,0 +1,20 @@
+package frc.robot.subsystems.arm;
+
+public enum ArmState {
+    STARTING,
+    BALLPICKUP,
+    BALLSTATION,
+    BALLGROUND,
+    HATCHSTATION,
+    ROCKETBALL,
+    CARGOBALL1,
+    CARGOBALL2,
+    CARGOBALL3,
+    CARGOHATCH1,
+    CARGOHATCH2,
+    CARGOHATCH3,
+    ROCKETHATCH1,
+    ROCKETHATCH2,
+    ROCKETHATCH3
+}
+

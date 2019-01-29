@@ -1,5 +1,12 @@
 package frc.robot.swerve;
-
+    // double l1 = 0; //length 1
+    // double l2 = 0; //length 2
+    // double angle1 = 0;
+    // double angle2 = 0;
+    // double y1 = math.sin(angle1) * l1; //opposite
+    // double x1 = l1 / y1; //adjacent
+    // double angleT = Math.acos(x / math.sqrt((x1 * x1) + (y1 * y1)));
+    // double endEffector = Point(x1, y1);
 public class SwingCalculations {
     double length;
     double width;

@@ -1,4 +1,4 @@
-package frc.robot.swerve.commands;
+package frc.robot.commands.swerve;
 
 import frc.robot.Robot;
 
@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class TankDrive extends Command {
+public class CrabDrive extends Command {
 
-    public TankDrive() {
+    public CrabDrive() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.swerveDrive);
@@ -17,12 +17,19 @@ public class TankDrive extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.swerveDrive.resetDrive();
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.swerveDrive.TankDrive(Robot.oi.getLeftJoystick().getY(), Robot.oi.getRightJoystick().getY());
+    	if (Robot.oi.getMagnitude(Robot.oi.getLeftJoystick()) < .1) {
+    		Robot.swerveDrive.SetAllModules(0, 0, 0, 0);
+    		Robot.swerveDrive.stopDrive();
+    	}
+    	else {
+    		Robot.swerveDrive.CrabDrive(Robot.oi.getAngle(Robot.oi.getLeftJoystick()), Robot.oi.getMagnitude(Robot.oi.getLeftJoystick()));
+    	}
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()

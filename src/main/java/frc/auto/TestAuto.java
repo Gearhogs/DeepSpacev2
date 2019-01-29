@@ -1,6 +1,6 @@
 package frc.auto;
 
-import frc.robot.swerve.commands.MoveDirection;
+import frc.robot.commands.swerve.MoveDirection;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;

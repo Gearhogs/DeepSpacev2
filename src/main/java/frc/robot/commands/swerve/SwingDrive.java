@@ -1,33 +1,38 @@
-package frc.robot.swerve.commands;
+package frc.robot.commands.swerve;
 
 import frc.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.swerve.SwervePosition;
+import frc.robot.swerve.SwingCalculations;
 
 /**
  *
  */
-public class DefenseDrive extends Command {
+public class SwingDrive extends Command {
 
-    public DefenseDrive() {
+    public SwingDrive() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.swerveDrive);
     }
 
+
     // Called just before this Command runs the first time
     protected void initialize() {
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    	if(Robot.oi.getMagnitude(Robot.oi.getLeftJoystick()) < .1 && Robot.oi.getMagnitude(Robot.oi.getRightJoystick()) < .1) {
+    protected void execute() { 
+    	if (Robot.oi.getMagnitude(Robot.oi.getLeftJoystick()) < .1) {
+    		Robot.swerveDrive.SetAllModules(0, 0, 0, 0);
     		Robot.swerveDrive.stopDrive();
-    		Robot.swerveDrive.setDriveX();
-    	}
+        }
     	else {
-    		Robot.swerveDrive.CrabDrive(Robot.oi.getAngle(Robot.oi.getLeftJoystick()), Robot.oi.getMagnitude(Robot.oi.getLeftJoystick()));
+    		Robot.swerveDrive.SwingDrive(Robot.oi.getAngle(Robot.oi.getRightJoystick()), Robot.oi.getMagnitude(Robot.oi.getLeftJoystick()));
     	}
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()

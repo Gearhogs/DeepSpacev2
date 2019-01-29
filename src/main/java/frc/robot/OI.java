@@ -7,7 +7,7 @@
 
 package frc.robot;
 
-import frc.robot.swerve.commands.SetSwerveModuleRotation;
+import frc.robot.commands.swerve.SetSwerveModuleRotation;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
