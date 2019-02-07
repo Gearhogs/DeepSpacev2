@@ -7,13 +7,16 @@
 
 package frc.robot;
 
+import frc.robot.commands.arm.changeArmPosition;
+import frc.robot.commands.arm.runIntake;
 import frc.robot.commands.swerve.SetSwerveModuleRotation;
-
+import frc.robot.subsystems.arm.ArmState;
+import frc.robot.subsystems.arm.IntakeState;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import frc.robot.commands.arm.*;
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -21,15 +24,61 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class OI {
 	Joystick leftJoystick = new Joystick(0);
 	Joystick rightJoystick = new Joystick(1);
-	
+	Joystick controller = new Joystick(2);
+
 	Button switchToCrab = new JoystickButton(leftJoystick, 1);
 	Button setRotationTo90 = new JoystickButton(rightJoystick,2);
 	Button setRotationTo0 = new JoystickButton(rightJoystick, 3);
+	Button intakeBallRelease = new JoystickButton(controller, 1);
+	Button intakeBallGrab = new JoystickButton(controller, 4);
+	Button liftUp= new JoystickButton(controller, 6); // Right-Top Trigger on Controller
+	Button liftDown= new JoystickButton(controller, 8); // Right Trigger on Controller
+	Button liftUpperJoint = new JoystickButton(controller, 5);
+	Button downUpperJoint = new JoystickButton(controller, 7);
+	Button liftLowerJoint = new JoystickButton(controller, 5);
+	Button downLowerJoint = new JoystickButton(controller, 7);
+	Button jointToggle = new JoystickButton(controller, 9);
+	// Button ballPickup = new JoystickButton(controller, 0);
+	// Button ballStation = new JoystickButton(controller, 0);
+	// Button ballGround = new JoystickButton(controller, 0);
+	// Button hatchStation = new JoystickButton(controller, 0);
+	// Button rocketBall1 = new JoystickButton(controller, 0);
+	// Button rocketBall2 = new JoystickButton(controller, 0);
+	// Button rocketBall3 = new JoystickButton(controller, 0);
+	// Button cargoBall1 = new JoystickButton(controller, 0);
+	// Button cargoBall2 = new JoystickButton(controller, 0);
+	// Button cargoBall3 = new JoystickButton(controller, 0);
+	// Button cargoHatch = new JoystickButton(controller, 0);
+	// Button rocketHatch1 = new JoystickButton(controller, 0);
+	// Button rocketHatch2 = new JoystickButton(controller, 0);
+	// Button rocketHatch3 = new JoystickButton(controller, 0);
 	
 	public OI() {
 		//switchToCrab.whenPressed(new CrabDrive());
 		setRotationTo90.whenPressed(new SetSwerveModuleRotation(4096*5));
 		setRotationTo0.whenPressed(new SetSwerveModuleRotation(0));
+		intakeBallGrab.whenPressed(new runIntake(-1));
+		intakeBallRelease.whenPressed(new runIntake(1));
+
+		// jointToggle.whenPressed(); Create Toggle for Joint Controls, when this button is pressed, use left triggers for up and down
+		liftLowerJoint.whenPressed(new runLowerArm(1));
+		liftUpperJoint.whenPressed(new runUpperArm(1));
+		//downLowerJoint.whenPressed(new runLowerArm(-1));
+		//downUpperJoint.whenPressed(new runUpperArm(-1));
+
+		// ballGround.whenPressed(new changeArmPosition(ArmState.BALLGROUND));
+		// ballPickup.whenPressed(new changeArmPosition(ArmState.BALLPICKUP));
+		// ballStation.whenPressed(new changeArmPosition(ArmState.BALLSTATION));
+		// rocketBall1.whenPressed(new changeArmPosition(ArmState.ROCKETBALL1));
+		// rocketBall2.whenPressed(new changeArmPosition(ArmState.ROCKETBALL2));
+		// rocketBall3.whenPressed(new changeArmPosition(ArmState.ROCKETBALL3));
+		// cargoBall1.whenPressed(new changeArmPosition(ArmState.CARGOBALL1));
+		// cargoBall2.whenPressed(new changeArmPosition(ArmState.CARGOBALL2));
+		// cargoBall3.whenPressed(new changeArmPosition(ArmState.CARGOBALL3));
+		// cargoHatch.whenPressed(new changeArmPosition(ArmState.CARGOHATCH));
+		// rocketHatch1.whenPressed(new changeArmPosition(ArmState.ROCKETHATCH1));
+		// rocketHatch2.whenPressed(new changeArmPosition(ArmState.ROCKETHATCH2));
+		// rocketHatch3.whenPressed(new changeArmPosition(ArmState.ROCKETHATCH3));
 	}
 	
 	public Joystick getLeftJoystick() {

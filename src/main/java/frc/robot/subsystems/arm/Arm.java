@@ -9,6 +9,7 @@ package frc.robot.subsystems.arm;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
+import frc.robot.commands.arm.changeArmPosition;
 import frc.robot.util.Joint;
 import frc.robot.util.MathUtil;
 import frc.robot.util.Vector;
@@ -53,7 +54,13 @@ public class Arm extends Subsystem {
     angles = MathUtil.InverseKinematics(p, upperArm.getLength(), lowerArm.getLength());
     SetJointAngles(angles[0], angles[1]);
   }
+  public void runUpperArm(Double power){
+    upperArm.runMotor(power);
+  } 
+  public void runLowerArm(Double power){
+    lowerArm.runMotor(power);
+  }
   public void initDefaultCommand() {
-    
+    setDefaultCommand(new changeArmPosition(ArmState.STARTING));
   }
 }

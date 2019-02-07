@@ -80,7 +80,10 @@ public class Joint {
     public void setLength(Double length) {
         this.length = length;
     }
+    public void runMotor(Double power){
+        jointMotor.set(ControlMode.PercentOutput, power);
 
+    }
     public Joint(Vector vector) {
         this.setVector(vector);
         setLength(vector.getLength());

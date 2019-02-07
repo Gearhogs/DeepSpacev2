@@ -8,7 +8,8 @@
 package frc.robot;
 
 import frc.robot.subsystems.arm.Arm;
-import frc.robot.swerve.SwerveDrive;
+import frc.robot.subsystems.arm.Intake;
+import frc.robot.subsystems.swerve.SwerveDrive;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -27,6 +28,7 @@ public class Robot extends TimedRobot {
 	public static SwerveDrive swerveDrive;
 	public static Arm arm;
 	public static OI oi;
+	public static Intake intake;
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
