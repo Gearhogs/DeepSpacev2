@@ -108,16 +108,21 @@ public class Arm extends Subsystem {
     return intakeArm;
   }
   public void SetJointAngles(Double liftArmAngle, Double intakeArmAngle) {
-    liftArm.setTargetPos(MathUtil.DegreesToTicks(liftArmAngle, RobotMap.liftArmRatio));
-    intakeArm.setTargetPos(MathUtil.DegreesToTicks(intakeArmAngle, RobotMap.intakeArmRatio)) ;
+    liftArm.setTargetPos(MathUtil.DegreesToAdc(liftArmAngle));
+    intakeArm.setTargetPos(MathUtil.DegreesToTicks(intakeArmAngle, RobotMap.intakeArmRatio));
   }
   public void SetJointAngles(State intakeState, State liftState) {
     liftArm.setTargetPos(liftState.getAdc());
-    
-    intakeArm.setTargetPos(intakeState.getAdc());
+    intakeArm.setTargetPos(intakeState.getTicks());
+  }
+  public void SetliftArmAngle(State liftState){
+    liftArm.setTargetPos(liftState.getAdc());
+  }
+  public void SetintakeArmAngle(State intakeState){
+    intakeArm.setTargetPos(intakeState.getTicks());
   }
   public void SetliftArmAngle(Double liftArmAngle){
-    liftArm.setTargetPos(MathUtil.DegreesToTicks(liftArmAngle, RobotMap.liftArmRatio));
+    liftArm.setTargetPos(MathUtil.DegreesToAdc(liftArmAngle));
   }
   public void SetintakeArmAngle(Double intakeArmAngle){
     intakeArm.setTargetPos(MathUtil.DegreesToTicks(intakeArmAngle, RobotMap.intakeArmRatio));

@@ -1,6 +1,7 @@
 package frc.robot.commands.arm;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.Robot;
 import frc.robot.subsystems.arm.StateConstants;
 import frc.robot.subsystems.arm.*;
@@ -22,6 +23,9 @@ public class autoArm extends Command {
 
         switch(Robot.arm.getArmState()) {
             case STARTING:
+            Robot.arm.SetliftArmAngle(StateConstants.STARTING_LIFT);
+            // new WaitCommand(1);
+            Robot.arm.SetintakeArmAngle(StateConstants.STARTING_INTAKE);
             Robot.arm.SetJointAngles(StateConstants.STARTING_INTAKE, StateConstants.STARTING_LIFT);
             break;
             case DEFAULT:

@@ -25,8 +25,6 @@ public class RobotMap {
 	public static int liftLevelADC = 600;
 	public static int liftArmLowerLimit = MathUtil.DegreesToAdc(-70.0);
 	public static int liftArmUpperLimit = MathUtil.DegreesToAdc(60.0);
-	public static int intakeArmLowerLimit = MathUtil.DegreesToAdc(-15.0);
-	public static int intakeArmUpperLimit = MathUtil.DegreesToAdc(45.0);
 	//Drive
 	public static int frontLeftDriveMotor = 1;
 	public static int frontLeftRotateMotor = 11;
