@@ -1,5 +1,6 @@
 package frc.robot.subsystems.swerve;
 
+import frc.robot.RobotMap;
 import frc.robot.util.MathUtil;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -21,14 +22,19 @@ public class SwerveModule extends Subsystem {
 	private int offset;
 
 
-	private final double ratio = .266666;
+	private final double ratio = RobotMap.swerveRatio;
 	
 	
     public SwerveModule(int drive, int rotate, int encoderValue, SwervePosition pos) {
     	driveMotor = new TalonSRX(drive);
-    	rotateMotor = new TalonSRX(rotate);
+		rotateMotor = new TalonSRX(rotate);
+		driveMotor.configFactoryDefault();
+		rotateMotor.configFactoryDefault();
+		rotateMotor.config_kP(0, 0.6);
     }
+	public void FollowLine() {
 
+	}
     public void Rotate(double degrees) {
     	rotateMotor.set(ControlMode.Position, MathUtil.DegreesToTicks(degrees, ratio) + offset);
     }
@@ -36,11 +42,12 @@ public class SwerveModule extends Subsystem {
     public void Speed(double power) {
     	driveMotor.set(ControlMode.PercentOutput, power);	
     }
-    
+    public TalonSRX getTalon() {
+		return driveMotor;
+	}
     public void Debug() {
-    	//add to this
-    }
-    
+    	
+    } 
 	public SwervePosition getPosition() {
 		return position;
 	}

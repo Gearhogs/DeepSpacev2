@@ -1,6 +1,6 @@
-package frc.robot.subsystems.arm;
+package frc.robot.subsystems.beater;
 
-public enum IntakeState {
+public enum BeaterState {
     NOTDEPLOYED,
     DEPLOYED,
     OBJECTNONE,

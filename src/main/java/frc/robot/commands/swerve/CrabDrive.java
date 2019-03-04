@@ -1,7 +1,7 @@
 package frc.robot.commands.swerve;
 
 import frc.robot.Robot;
-
+import frc.robot.util.MathUtil;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -23,12 +23,20 @@ public class CrabDrive extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if (Robot.oi.getMagnitude(Robot.oi.getLeftJoystick()) < .1) {
-    		Robot.swerveDrive.SetAllModules(0, 0, 0, 0);
-    		Robot.swerveDrive.stopDrive();
+            if(Robot.oi.getMagnitude(Robot.oi.getRightJoystick()) < .1) {
+                //Robot.swerveDrive.SetAllModules(0, 0, 0, 0);
+    		    Robot.swerveDrive.stopDrive();    
+            }
+            else {
+                Robot.swerveDrive.setDriveToTurn();
+                Robot.swerveDrive.setDriveRotateSpeed(Robot.oi.getX(Robot.oi.getRightJoystick()));
+            }
+            
     	}
     	else {
-    		Robot.swerveDrive.CrabDrive(Robot.oi.getAngle(Robot.oi.getLeftJoystick()), Robot.oi.getMagnitude(Robot.oi.getLeftJoystick()));
-    	}
+    	    Robot.swerveDrive.CrabDrive(Robot.oi.getAngle(Robot.oi.getLeftJoystick()), Robot.oi.getMagnitude(Robot.oi.getLeftJoystick()));
+            // Robot.swerveDrive.SetAllModules(MathUtil.MagnitudeToDegrees(), MathUtil.MagnitudeToDegrees(), MathUtil.MagnitudeToDegrees(), MathUtil.MagnitudeToDegrees());
+        }
     	
     }
 

@@ -1,22 +1,20 @@
-package frc.robot.commands.arm;
+package frc.robot.commands.beater;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.subsystems.beater.HatchState;
 
 /**
  *
  */
-public class runIntake extends Command {
+public class toggleHatch extends Command {
+    private Boolean isDone = true;
 
-	
-	private double power;
-    
-	public runIntake(double power) {
-        super("RunIntake");
+	public toggleHatch() {
+        super();
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(Robot.intake);
-        this.power = power;
+        requires(Robot.beater);
     }
 
     // Called once when the command executes
@@ -27,12 +25,21 @@ public class runIntake extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.intake.runMotor(power);
+        switch(Robot.beater.getHatchState()){
+            case ISOPEN:
+            Robot.beater.setHatchState(HatchState.ISCLOSED);
+            Robot.beater.hatchRelease();
+            break;
+            case ISCLOSED:
+            Robot.beater.setHatchState(HatchState.ISOPEN);
+            Robot.beater.hatchGrab();
+            break;
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return isDone;
     }
 
     // Called once after isFinished returns true

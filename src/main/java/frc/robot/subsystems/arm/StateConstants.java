@@ -1,0 +1,54 @@
+package frc.robot.subsystems.arm;
+
+import frc.robot.subsystems.arm.State;
+import frc.robot.Robot;
+import frc.robot.RobotMap;
+
+public class StateConstants {
+    public static State DEFAULT_LIFT = new State(0.0);
+    public static State DEFAULT_INTAKE = new State(0.0);
+    public static State STAGE1_LIFT = new State(0.0);
+    public static State STAGE2_LIFT = new State(0.0);
+    public static State STAGE3_LIFT = new State(0.0);
+    public static State STAGE1_INTAKE = new State(0.0);
+    public static State STAGE2_INTAKE = new State(0.0);
+    public static State STAGE3_INTAKE = new State(0.0);
+    public static State STARTING_LIFT = new State(0.0);
+    public static State STARTING_INTAKE = new State(0.0);
+    public static State BALLPICKUP_LIFT = new State(0.0);
+    public static State BALLPICKUP_INTAKE = new State(0.0);
+    public static State BALLSTATION_LIFT = new State(0.0);
+    public static State BALLSTATION_INTAKE = new State(0.0);
+    public static State HATCHSTATION_LIFT = new State(0.0);
+    public static State HATCHSTATION_INTAKE = new State(0.0);
+    // public static State DEFAULT_INTAKE = new State(-100.0, RobotMap.intakeArmRatio);
+    // public static State STARTING_INTAKE = new State(0.0, RobotMap.intakeArmRatio);
+    // public static State BALLPICKUP_LIFT = new State(0.0);
+    // public static State BALLPICKUP_INTAKE = new State(0.0, RobotMap.intakeArmRatio);
+    // public static State BALLSTATION_LIFT = new State(0.0);
+    // public static State BALLSTATION_INTAKE = new State(0.0, RobotMap.intakeArmRatio);
+    // public static State BALLGROUND_LIFT = new State(0.0);
+    // public static State BALLGROUND_INTAKE = new State(-90.0, RobotMap.intakeArmRatio);
+    // public static State HATCHSTATION_LIFT = new State(0.0);
+    // public static State HATCHSTATION_INTAKE = new State(0.0, RobotMap.intakeArmRatio);
+    // public static State ROCKETBALL1_LIFT = new State(0.0);
+    // public static State ROCKETBALL1_INTAKE = new State(-100.0, RobotMap.intakeArmRatio);
+    // public static State ROCKETBALL2_LIFT = new State(0.0);
+    // public static State ROCKETBALL2_INTAKE = new State(0.0, RobotMap.intakeArmRatio);
+    // public static State ROCKETBALL3_LIFT = new State(0.0);
+    // public static State ROCKETBALL3_INTAKE = new State(0.0, RobotMap.intakeArmRatio);
+    // public static State CARGOBALL1_LIFT = new State(0.0);
+    // public static State CARGOBALL1_INTAKE = new State(0.0, RobotMap.intakeArmRatio);
+    // public static State CARGOBALL2_LIFT = new State(0.0);
+    // public static State CARGOBALL2_INTAKE = new State(0.0, RobotMap.intakeArmRatio);
+    // public static State CARGOBALL3_LIFT = new State(0.0);
+    // public static State CARGOBALL3_INTAKE = new State(0.0, RobotMap.intakeArmRatio);
+    // public static State CARGOHATCH_LIFT = new State(0.0);
+    // public static State CARGOHATCH_INTAKE = new State(0.0, RobotMap.intakeArmRatio);
+    // public static State ROCKETHATCH1_LIFT = new State(0.0);
+    // public static State ROCKETHATCH1_INTAKE = new State(0.0, RobotMap.intakeArmRatio);
+    // public static State ROCKETHATCH2_LIFT = new State(0.0);
+    // public static State ROCKETHATCH2_INTAKE = new State(0.0, RobotMap.intakeArmRatio);
+    // public static State ROCKETHATCH3_LIFT = new State(0.0);
+    // public static State ROCKETHATCH3_INTAKE = new State(0.0, RobotMap.intakeArmRatio);
+}

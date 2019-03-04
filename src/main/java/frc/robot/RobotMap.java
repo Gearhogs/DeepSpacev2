@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import frc.robot.util.MathUtil;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -15,6 +17,16 @@ package frc.robot;
  */
 public class RobotMap {
 	
+	public static double defaultRampRate = 0;
+	public static double peakOutput = 0.7;
+	public static Double liftArmRatio = 0.0694;
+	public static Double intakeArmRatio = 0.2272;
+	public static double swerveRatio = .2666;
+	public static int liftLevelADC = 600;
+	public static int liftArmLowerLimit = MathUtil.DegreesToAdc(-70.0);
+	public static int liftArmUpperLimit = MathUtil.DegreesToAdc(60.0);
+	public static int intakeArmLowerLimit = MathUtil.DegreesToAdc(-15.0);
+	public static int intakeArmUpperLimit = MathUtil.DegreesToAdc(45.0);
 	//Drive
 	public static int frontLeftDriveMotor = 1;
 	public static int frontLeftRotateMotor = 11;
@@ -26,19 +38,22 @@ public class RobotMap {
 	public static int backRightRotateMotor = 14;
 	
 	//Arm
-	public static int upperArmMotor = 15;
-	public static int lowerArmMotor = 16;
-
+	public static int leftArm1 = 15;
+	public static int rightArm1 = 16;
+	public static int arm2 = 17;
+	
 	//Gripper
-	public static int intakeLeftMotor = 17;
-	public static int intakeRightMotor = 18;
-	public static int topCylinderFwd = 19;
-	public static int topCylinderRev = 20;
-	public static int bottomCylinderFwd = 21;
-	public static int bottomCylinderRev = 22;
+	public static int intakeLeftMotor = 18;
+	public static int intakeRightMotor = 19;
+	
+	//Pneumatics
+	public static int ballCylinderFwd = 0;
+	public static int ballCylinderRev = 1;
+	public static int hatchCylinderFwd = 2;
+	public static int hatchCylinderRev = 3;
 	
 	//Sensors
-	public static int gyro = 10;
+	public static int gyro = 41;
 	// For example to map the left and right motors, you could define the
 	// following variables to use with your drivetrain subsystem.
 	// public static int leftMotor = 1;

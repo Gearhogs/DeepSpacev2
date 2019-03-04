@@ -1,7 +1,9 @@
 package frc.robot.subsystems.arm;
 
-public enum ControlModePosition {
+public enum ControlMode {
     INVERSEKINEMATICS,
     FORWARDKINEMATICS,
-    LEVEL
+    LEVEL,
+    DIRECTANGLE,
+    PERCENTOUTPUT
 }

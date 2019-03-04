@@ -8,9 +8,9 @@
 package frc.robot;
 
 import frc.robot.subsystems.arm.Arm;
-import frc.robot.subsystems.arm.Intake;
+import frc.robot.subsystems.beater.Beater;
 import frc.robot.subsystems.swerve.SwerveDrive;
-
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -27,9 +27,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
 	public static SwerveDrive swerveDrive;
 	public static Arm arm;
+	public static Beater beater;
 	public static OI oi;
-	public static Intake intake;
-
+	PowerDistributionPanel pdp;
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -40,10 +40,15 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		swerveDrive = new SwerveDrive();
+		// arm = new Arm();
+		// beater = new Beater();
+		pdp = new PowerDistributionPanel(40);
 		oi = new OI();
+
 		//chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
+	
 
 	/**
 	 * This function is called once each time the robot enters Disabled mode.
@@ -124,7 +129,10 @@ public class Robot extends TimedRobot {
 	}
 	
 	public void Debug() {
-		//swerveDrive.Debug();
+		swerveDrive.Debug();
 		//oi.Debug();
+		// arm.Debug();
+		//intake.Debug();
+		//SmartDashboard.putData(pdp);
 	}
 }

@@ -7,60 +7,158 @@
 
 package frc.robot.subsystems.arm;
 
+import com.ctre.phoenix.motorcontrol.InvertType;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
-import frc.robot.commands.arm.changeArmPosition;
+import frc.robot.commands.arm.manualArm;
 import frc.robot.util.Joint;
 import frc.robot.util.MathUtil;
-import frc.robot.util.Vector;
 import frc.robot.util.Point;
+import frc.robot.util.Vector;
 
 /**
  * An example subsystem. You can replace me with your own Subsystem.
  */
 public class Arm extends Subsystem {
-  private Joint upperArm;
-  private Joint lowerArm;
-
-
+  private Joint liftArm;
+  private Joint intakeArm;
+  private TalonSRX rightArm1;
+  private ControlMode controlMode;
+  private Mode mode;
+  private ArmState armState;
+  
   public Arm(){
-    upperArm = new Joint(RobotMap.upperArmMotor);
-    lowerArm = new Joint(RobotMap.lowerArmMotor);
+    liftArm = new Joint(RobotMap.leftArm1, RobotMap.liftArmRatio);
+    intakeArm = new Joint(RobotMap.arm2, RobotMap.intakeArmRatio);
+    rightArm1 = new TalonSRX(RobotMap.rightArm1);
 
-    upperArm.setVector(new Vector(0.0, 5.0));
-    lowerArm.setVector(new Vector(0.0, 5.0));
+    liftArm.getMotor().configFactoryDefault();
+    intakeArm.getMotor().configFactoryDefault();
+    rightArm1.configFactoryDefault();
+
+    rightArm1.follow(liftArm.getMotor());
+    rightArm1.setInverted(InvertType.OpposeMaster);
+
+    liftArm.getMotor().configOpenloopRamp(1);    
+    intakeArm.getMotor().configOpenloopRamp(1);
+    
+    rightArm1.configNominalOutputForward(0);
+    rightArm1.configNominalOutputReverse(0);
+    rightArm1.configPeakOutputForward(RobotMap.peakOutput);
+    rightArm1.configPeakOutputReverse(-RobotMap.peakOutput);
+    
+
+    liftArm.getMotor().setInverted(true);
+    liftArm.getMotor().configClearPositionOnLimitR(true, 0);
+
+    intakeArm.getMotor().configClearPositionOnLimitF(true, 0);
+    
+    intakeArm.getMotor().setInverted(InvertType.InvertMotorOutput);
+    intakeArm.getMotor().configPeakOutputForward(.4);
+    intakeArm.getMotor().configPeakOutputReverse(-.4);
+
+    liftArm.setVector(new Vector(0.0, 32.0));
+    intakeArm.setVector(new Vector(0.0, 11.5));
+
+    liftArm.setSensorPhase(false);
+    intakeArm.setSensorPhase(true);
+
+    liftArm.configSoftLimits(RobotMap.liftArmLowerLimit, RobotMap.liftArmUpperLimit);
+    intakeArm.configSoftLimits(-11000, 0);
+
+    liftArm.setSoftLimit(true);
+    liftArm.configLimitSwitchReverse();
+    liftArm.setPID(0.0, 0.0, 0.0, 0.0);
+    intakeArm.setPID(0.0, 0.0, 0.0, 0.0);
+    
+    liftArm.setMotionMagic(500, 500);
+    intakeArm.setMotionMagic(800, 1200);
+
+    controlMode = ControlMode.PERCENTOUTPUT;
+    mode = Mode.MANUAL;
+    armState = ArmState.DEFAULT;
   }
   
-  public void SetJointAngles(Double UpperArmAngle, Double LowerArmAngle){
-    upperArm.setTargetAngle(UpperArmAngle);
-    lowerArm.setTargetAngle(LowerArmAngle);
+
+  public ControlMode getControlMode() {
+    return controlMode;
   }
-  public void SetUpperArmAngle(Double UpperArmAngle){
-    upperArm.setTargetAngle(UpperArmAngle);
+  public Mode getMode(){
+    return mode;
   }
-  public void SetLowerArmAngle(Double LowerArmAngle){
-    lowerArm.setTargetAngle(LowerArmAngle);
+  public ArmState getArmState(){
+    return armState;
   }
-  public void resetAngles(){
-    upperArm.setTargetAngle(-45.0);
-    lowerArm.setTargetAngle(45.0);
+  public void setArmState(ArmState armState) {
+    this.armState = armState;
   }
+  public void setMode(Mode mode) {
+    this.mode = mode;
+  }
+  public void setControlMode(ControlMode controlMode) {
+    this.controlMode = controlMode;
+  }
+  public Joint getliftArm() {
+    return liftArm;
+  }
+  public Joint getintakeArm() {
+    return intakeArm;
+  }
+  public void SetJointAngles(Double liftArmAngle, Double intakeArmAngle) {
+    liftArm.setTargetPos(MathUtil.DegreesToTicks(liftArmAngle, RobotMap.liftArmRatio));
+    intakeArm.setTargetPos(MathUtil.DegreesToTicks(intakeArmAngle, RobotMap.intakeArmRatio)) ;
+  }
+  public void SetJointAngles(State intakeState, State liftState) {
+    liftArm.setTargetPos(liftState.getAdc());
+    
+    intakeArm.setTargetPos(intakeState.getAdc());
+  }
+  public void SetliftArmAngle(Double liftArmAngle){
+    liftArm.setTargetPos(MathUtil.DegreesToTicks(liftArmAngle, RobotMap.liftArmRatio));
+  }
+  public void SetintakeArmAngle(Double intakeArmAngle){
+    intakeArm.setTargetPos(MathUtil.DegreesToTicks(intakeArmAngle, RobotMap.intakeArmRatio));
+  }
+  // public void resetAngles(){
+  //   liftArm.setTargetAngle(-45.0);
+  //   intakeArm.setTargetAngle(45.0);
+  // }
   public Point getEndEffectorPoint() {
-    Point p = MathUtil.ForwardKinematics(upperArm.getCurrentAngle(), lowerArm.getCurrentAngle(), upperArm.getLength(), lowerArm.getLength());
+    Point p = MathUtil.ForwardKinematics(liftArm.getCurrentAngle(), intakeArm.getCurrentAngle(), liftArm.getLength(), intakeArm.getLength());
     return p;
   }
   public void setEndEffectorPoint(Point p) {
     Double[] angles = new Double[2];
-    angles = MathUtil.InverseKinematics(p, upperArm.getLength(), lowerArm.getLength());
+    angles = MathUtil.InverseKinematics(p, liftArm.getLength(), intakeArm.getLength());
     SetJointAngles(angles[0], angles[1]);
   }
-  public void runUpperArm(Double power){
-    upperArm.runMotor(power);
+  public void runliftArm(Double power){
+    liftArm.runMotor(power);
   } 
-  public void runLowerArm(Double power){
-    lowerArm.runMotor(power);
+  public void runintakeArm(Double power){
+    intakeArm.runMotor(power);
   }
+  public void resetZero(){
+    // liftArm.setAnalogPosition(600);
+    intakeArm.setRelativePosition(0);
+    liftArm.setSoftLimit(true);
+    intakeArm.setSoftLimit(true);
+  }
+  public int getAbsolutePosition() {
+    return liftArm.getAnalogPosition();
+  }
+  public void Debug() {
+    SmartDashboard.putData("Arm: ", this);
+    liftArm.Debug("Arm1");
+    intakeArm.Debug("Arm2");
+    SmartDashboard.putString("Arm State", getArmState().toString());
+  }
+
   public void initDefaultCommand() {
-    setDefaultCommand(new changeArmPosition(ArmState.STARTING));
+    //setDefaultCommand(new changeArmPosition(ArmState.STARTING));
+    setDefaultCommand(new manualArm());
   }
 }

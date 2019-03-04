@@ -1,6 +1,7 @@
 package frc.robot.subsystems.swerve;
 
 import frc.robot.RobotMap;
+import frc.robot.subsystems.Gyro;
 
 import com.ctre.phoenix.sensors.PigeonIMU;
 
@@ -16,7 +17,8 @@ public class SwerveDrive extends Subsystem {
 	public SwerveModule backLeft;
 	public SwerveModule backRight;
 	
-	PigeonIMU gyro;
+	double leftPercent = 0.917, rightPercent = .875;
+	public Gyro gyro;
 	
 	private SwerveProfile currentSwerveProfile;
 	
@@ -25,7 +27,7 @@ public class SwerveDrive extends Subsystem {
 		frontRight = new SwerveModule(RobotMap.frontRightDriveMotor, RobotMap.frontRightRotateMotor, 5921, SwervePosition.FRONTRIGHT);
 		backLeft = new SwerveModule(RobotMap.backLeftDriveMotor, RobotMap.backLeftRotateMotor, 5049, SwervePosition.BACKLEFT);
 		backRight = new SwerveModule(RobotMap.backRightDriveMotor, RobotMap.backRightRotateMotor, 1629, SwervePosition.BACKRIGHT);
-		gyro = new PigeonIMU(RobotMap.gyro);
+		gyro = new Gyro(frontLeft.getTalon());
 	}
 	
 	
@@ -45,10 +47,7 @@ public class SwerveDrive extends Subsystem {
 		backLeft.Rotate(degrees);
 		backRight.Rotate(degrees);
 		
-		frontLeft.Speed(power);
-		frontRight.Speed(power);
-		backLeft.Speed(power);
-		backRight.Speed(power);
+		setDriveSpeed(power);
 	}
 	public void SwingDrive(double degrees, double power) {
 		
@@ -86,10 +85,11 @@ public class SwerveDrive extends Subsystem {
 		frontRight.Rotate(-45);
 		backLeft.Rotate(-45);
 		backRight.Rotate(45);
+
 	}
 	public void setDriveToTurn() {
-		frontLeft.Rotate(45);
-		frontRight.Rotate(-45);
+		frontLeft.Rotate(-45);
+		frontRight.Rotate(45);
 		backLeft.Rotate(45);
 		backRight.Rotate(-45);
 	}
@@ -100,11 +100,17 @@ public class SwerveDrive extends Subsystem {
 		backRight.Rotate(0);
 	}
 	public void setDriveSpeed(double power) {
-		frontLeft.Speed(power);
-		frontRight.Speed(power);
-		backLeft.Speed(power);
-		backRight.Speed(power);
+		frontLeft.Speed(power * leftPercent);
+		frontRight.Speed(power * rightPercent);
+		backLeft.Speed(power * leftPercent);
+		backRight.Speed(power * rightPercent);
 		
+	}
+	public void setDriveRotateSpeed(double power) {
+		frontLeft.Speed(power);
+		frontRight.Speed(-power);
+		backRight.Speed(-power);
+		backLeft.Speed(power);
 	}
 	public void stopDrive() {
 		frontLeft.Speed(0);
@@ -140,12 +146,12 @@ public class SwerveDrive extends Subsystem {
 		frontRight.Debug();
 		backLeft.Debug();
 		backRight.Debug();
+		gyro.Debug();
 	}
 	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new frc.robot.commands.swerve.CrabDrive());
     }
 	
 }
