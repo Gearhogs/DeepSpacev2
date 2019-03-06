@@ -22,9 +22,11 @@ public class RobotMap {
 	public static Double liftArmRatio = 0.0694;
 	public static Double intakeArmRatio = 0.2272;
 	public static double swerveRatio = .2666;
-	public static int liftLevelADC = 600;
-	public static int liftArmLowerLimit = MathUtil.DegreesToAdc(-70.0);
-	public static int liftArmUpperLimit = MathUtil.DegreesToAdc(60.0);
+	public static int liftLevelADC = 374;
+	public static int liftArmLowerLimit = MathUtil.DegreesToAdc(-100.0);
+	public static int liftArmUpperLimit = MathUtil.DegreesToAdc(80.0);
+	public static int maxArmHeight = 68;  //inches
+
 	//Drive
 	public static int frontLeftDriveMotor = 1;
 	public static int frontLeftRotateMotor = 11;

@@ -63,19 +63,18 @@ public class OI {
 		//setHomeLift.whileHeld(new armHomeSensor(Robot.arm.getliftArm(), false));
 		//setHomeIntake.whileHeld(new armHomeSensor(Robot.arm.getintakeArm(), true));
 
-		// intakeBallGrab.whileHeld(new runBeater(-.2));
-		// intakeBallRelease.whileHeld(new runBeater(.2));
-		// toggleArmMode.whenPressed(new toggleArmMode());
+		intakeBallGrab.whileHeld(new runBeater(-.2));
+		intakeBallRelease.whileHeld(new runBeater(.2));
+		toggleArmMode.whenPressed(new toggleArmMode());
 
-		// toggleHatch.whenPressed(new toggleHatch());
-		// toggleBall.whenPressed(new toggleBall());
+		toggleHatch.whenPressed(new toggleHatch());
+		toggleBall.whenPressed(new toggleBall());
 
-		// ballPickup.whenPressed(new setArm(ArmState.BALLPICKUP));
-		// starting.whenPressed(new setArm(ArmState.STARTING));
-		// stage1.whenPressed(new setArm(ArmState.STAGE1));
-		// stage2.whenPressed(new setArm(ArmState.STAGE2));
-		// hatchStation.whenPressed(new setArm(ArmState.HATCHSTATION));
-		// ballStation.whenPressed(new setArm(ArmState.BALLSTATION));
+		ballPickup.whenPressed(new setArm(ArmState.BALLPICKUP));
+		starting.whenPressed(new setArm(ArmState.STARTING));
+		stage1.whenPressed(new setArm(ArmState.STAGE1));
+		stage2.whenPressed(new setArm(ArmState.STAGE2));
+		hatchStation.whenPressed(new setArm(ArmState.HATCHSTATION));
 		
 		// ballGround.whenPressed(new setArm(ArmState.BALLGROUND));
 		// rocketBall1.whenPressed(new setArm(ArmState.ROCKETBALL1));

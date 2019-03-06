@@ -35,8 +35,6 @@ public class Arm extends Subsystem {
     intakeArm = new Joint(RobotMap.arm2, RobotMap.intakeArmRatio);
     rightArm1 = new TalonSRX(RobotMap.rightArm1);
 
-    liftArm.getMotor().configFactoryDefault();
-    intakeArm.getMotor().configFactoryDefault();
     rightArm1.configFactoryDefault();
 
     rightArm1.follow(liftArm.getMotor());
@@ -63,7 +61,7 @@ public class Arm extends Subsystem {
     liftArm.setVector(new Vector(0.0, 32.0));
     intakeArm.setVector(new Vector(0.0, 11.5));
 
-    liftArm.setSensorPhase(false);
+    liftArm.setSensorPhase(true);
     intakeArm.setSensorPhase(true);
 
     liftArm.configSoftLimits(RobotMap.liftArmLowerLimit, RobotMap.liftArmUpperLimit);
@@ -112,7 +110,7 @@ public class Arm extends Subsystem {
     intakeArm.setTargetPos(MathUtil.DegreesToTicks(intakeArmAngle, RobotMap.intakeArmRatio));
   }
   public void SetJointAngles(State intakeState, State liftState) {
-    liftArm.setTargetPos(liftState.getAdc());
+    liftArm.setTargetAdc(liftState.getAdc());
     intakeArm.setTargetPos(intakeState.getTicks());
   }
   public void SetliftArmAngle(State liftState){
@@ -122,7 +120,7 @@ public class Arm extends Subsystem {
     intakeArm.setTargetPos(intakeState.getTicks());
   }
   public void SetliftArmAngle(Double liftArmAngle){
-    liftArm.setTargetPos(MathUtil.DegreesToAdc(liftArmAngle));
+    liftArm.setTargetAdc(MathUtil.DegreesToAdc(liftArmAngle));
   }
   public void SetintakeArmAngle(Double intakeArmAngle){
     intakeArm.setTargetPos(MathUtil.DegreesToTicks(intakeArmAngle, RobotMap.intakeArmRatio));
@@ -157,8 +155,8 @@ public class Arm extends Subsystem {
   }
   public void Debug() {
     SmartDashboard.putData("Arm: ", this);
-    liftArm.Debug("Arm1");
-    intakeArm.Debug("Arm2");
+    liftArm.Debug("Lift Arm");
+    intakeArm.Debug("Intake Arm");
     SmartDashboard.putString("Arm State", getArmState().toString());
   }
 

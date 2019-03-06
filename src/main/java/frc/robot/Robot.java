@@ -40,8 +40,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		swerveDrive = new SwerveDrive();
-		// arm = new Arm();
-		// beater = new Beater();
+		arm = new Arm();
+		beater = new Beater();
 		pdp = new PowerDistributionPanel(40);
 		oi = new OI();
 
@@ -131,7 +131,7 @@ public class Robot extends TimedRobot {
 	public void Debug() {
 		swerveDrive.Debug();
 		//oi.Debug();
-		// arm.Debug();
+		arm.Debug();
 		//intake.Debug();
 		//SmartDashboard.putData(pdp);
 	}

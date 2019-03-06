@@ -13,15 +13,14 @@ import frc.robot.RobotMap;
 public class Joint {
     private Vector vector;
     private Double length, currentAngle, targetAngle, gearRatio;
-    private int tick;
+    private int tick, adc;
     private WPI_TalonSRX jointMotor;
     private Boolean isSoftLimitEnabled = false;
 
     public Joint(int motor, Double gearRatio) {
         jointMotor = new WPI_TalonSRX(motor);
-        jointMotor.setSafetyEnabled(true);
+        // jointMotor.setSafetyEnabled(true);
         jointMotor.configFactoryDefault();
-        jointMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
         jointMotor.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, 0);
         jointMotor.configOpenloopRamp(RobotMap.defaultRampRate);
         jointMotor.configClosedloopRamp(RobotMap.defaultRampRate);
@@ -82,6 +81,10 @@ public class Joint {
         this.tick = tick;
         jointMotor.set(ControlMode.MotionMagic, tick);
     }
+    public void setTargetAdc(int adc) {
+        this.adc = adc;
+        jointMotor.set(ControlMode.MotionMagic, adc);
+    }
     public int getTargetPos() {
         return tick;
     }
@@ -116,8 +119,8 @@ public class Joint {
     public void configSoftLimits(int lowLimit, int highLimit){
         jointMotor.configForwardSoftLimitThreshold(highLimit);
         jointMotor.configReverseSoftLimitThreshold(lowLimit);
-        jointMotor.configForwardSoftLimitEnable(isSoftLimitEnabled);
-        jointMotor.configReverseSoftLimitEnable(isSoftLimitEnabled);
+        jointMotor.configForwardSoftLimitEnable(true);
+        jointMotor.configReverseSoftLimitEnable(true);
     }
     public void configLimitSwitchForward(){
         jointMotor.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
@@ -173,8 +176,7 @@ public class Joint {
         SmartDashboard.putNumber(name + " Angle", MathUtil.TicksToDegrees(jointMotor.getSelectedSensorPosition(), gearRatio));
         SmartDashboard.putNumber(name + " Velocity" , jointMotor.getSelectedSensorVelocity(0));
         SmartDashboard.putNumber(name + " Error: ", jointMotor.getClosedLoopError(0));
-        SmartDashboard.putNumber(name + " SetPoint", MathUtil.TicksToDegrees(tick, gearRatio));
-        SmartDashboard.putNumber(name + " Absolute Position", jointMotor.getSensorCollection().getAnalogIn());
+        SmartDashboard.putNumber(name + " Absolute Position", MathUtil.AdcToDegrees(jointMotor.getSensorCollection().getAnalogIn()));
         if(name.equals("Arm1")) {
             SmartDashboard.putBoolean(name + " FwdSwitchPressed", jointMotor.getSensorCollection().isRevLimitSwitchClosed());
         } 

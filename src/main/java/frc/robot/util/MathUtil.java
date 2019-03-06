@@ -31,7 +31,7 @@ public class MathUtil {
 		return degrees;
     }
     public static double AdcToDegrees(int adc){
-        double degrees = (adc)/((1023 / 360) - (RobotMap.liftLevelADC/(1023/360)));
+        double degrees = adc/(1023 / 360) - RobotMap.liftLevelADC/(1023/360);
         return degrees;
     }
     public static int DegreesToAdc(Double degrees){

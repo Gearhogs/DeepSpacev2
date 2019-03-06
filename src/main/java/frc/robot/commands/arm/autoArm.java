@@ -25,29 +25,32 @@ public class autoArm extends Command {
             case STARTING:
             Robot.arm.SetliftArmAngle(StateConstants.STARTING_LIFT);
             // new WaitCommand(1);
-            Robot.arm.SetintakeArmAngle(StateConstants.STARTING_INTAKE);
-            Robot.arm.SetJointAngles(StateConstants.STARTING_INTAKE, StateConstants.STARTING_LIFT);
+            // Robot.arm.SetintakeArmAngle(StateConstants.STARTING_INTAKE);
+            // Robot.arm.SetJointAngles(StateConstants.STARTING_INTAKE, StateConstants.STARTING_LIFT);
             break;
             case DEFAULT:
-            Robot.arm.SetJointAngles(StateConstants.DEFAULT_INTAKE, StateConstants.DEFAULT_LIFT);
+            Robot.arm.SetliftArmAngle(StateConstants.DEFAULT_LIFT);
+            // Robot.arm.SetJointAngles(StateConstants.DEFAULT_INTAKE, StateConstants.DEFAULT_LIFT);
             break;
             case BALLPICKUP:
-            Robot.arm.SetJointAngles(StateConstants.BALLPICKUP_INTAKE, StateConstants.BALLPICKUP_LIFT);
-            break;
-            case BALLSTATION:
-            Robot.arm.SetJointAngles(StateConstants.BALLSTATION_INTAKE, StateConstants.BALLSTATION_LIFT);
+            Robot.arm.SetliftArmAngle(StateConstants.BALLPICKUP_LIFT);
+            // Robot.arm.SetJointAngles(StateConstants.BALLPICKUP_INTAKE, StateConstants.BALLPICKUP_LIFT);
             break;
             case HATCHSTATION:
-            Robot.arm.SetJointAngles(StateConstants.HATCHSTATION_INTAKE, StateConstants.HATCHSTATION_LIFT);
+            Robot.arm.SetliftArmAngle(StateConstants.HATCHSTATION_LIFT);
+            // Robot.arm.SetJointAngles(StateConstants.HATCHSTATION_INTAKE, StateConstants.HATCHSTATION_LIFT);
             break;
             case STAGE1:
-            Robot.arm.SetJointAngles(StateConstants.STAGE1_INTAKE, StateConstants.STAGE1_LIFT);
+            Robot.arm.SetliftArmAngle(StateConstants.STAGE1_LIFT);
+            // Robot.arm.SetJointAngles(StateConstants.STAGE1_INTAKE, StateConstants.STAGE1_LIFT);
             break;
             case STAGE2:
+            //Robot.arm.SetliftArmAngle(StateConstants.STAGE2_LIFT);
             Robot.arm.SetJointAngles(StateConstants.STAGE2_INTAKE, StateConstants.STAGE2_LIFT);
             break;
             case STAGE3:
-            Robot.arm.SetJointAngles(StateConstants.STAGE3_INTAKE, StateConstants.STAGE3_LIFT);
+            Robot.arm.SetliftArmAngle(StateConstants.STAGE3_LIFT);
+            // Robot.arm.SetJointAngles(StateConstants.STAGE3_INTAKE, StateConstants.STAGE3_LIFT);
             break;
             // case DEFAULT:
             // Robot.arm.SetJointAngles(StateConstants.DEFAULT_INTAKE, StateConstants.DEFAULT_LIFT);
